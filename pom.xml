@@ -7,6 +7,7 @@
 	<artifactId>spring-demo</artifactId>
 	<name>spring-demo</name>
 	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
 
 	<!--项目依赖 -->
 	<dependencies>
@@ -96,6 +97,7 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>9.3.10.v20160621</version>
 			</plugin>
+			<!-- 解决maven update时候Java版本变成1.5 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
