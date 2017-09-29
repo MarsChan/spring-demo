@@ -1,5 +1,7 @@
 package pers.marscheng.spring.controller.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import pers.marscheng.spring.controller.ItestInitController;
 import pers.marscheng.spring.service.ItestInitService;
+import pers.marscheng.spring.service.impl.TestInItServiceImpl;
 
 /**
  * @Description: 测试spring何时把bean加载实例化
@@ -19,7 +22,8 @@ import pers.marscheng.spring.service.ItestInitService;
 @RequestMapping("/controller/test/init")
 public class TestInitControllerImpl implements ItestInitController {
 	
-//	@Autowired
+	@Autowired
+	@Qualifier("testInItService")
 	private ItestInitService testInitService;
 	
 //	@Autowired
@@ -31,7 +35,7 @@ public class TestInitControllerImpl implements ItestInitController {
 	
 	@RequestMapping(value = "/testPost" , method = RequestMethod.POST)
 	@ResponseBody
-	public String testPost(@RequestParam(name="name")String name){
+	public String testPost(@RequestParam(value="name")String name){
 //		System.out.println("before");
 //		TestInItServiceImpl testInitService = (TestInItServiceImpl)beanFactory.getBean("testInItService");
 		testInitService.test();

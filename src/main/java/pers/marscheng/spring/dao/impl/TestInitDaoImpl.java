@@ -1,6 +1,5 @@
 package pers.marscheng.spring.dao.impl;
 
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import pers.marscheng.spring.dao.ItestInitDao;
