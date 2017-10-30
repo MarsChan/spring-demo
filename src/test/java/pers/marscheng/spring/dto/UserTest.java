@@ -13,17 +13,19 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import junit.framework.TestCase;
 import pers.marscheng.spring.service.IUserService;
 
+@WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/spring/spring-mvc.xml")
 public class UserTest extends TestCase {
 	@Autowired
     private IUserService userService;
 	@Test
-	@Ignore
+//	@Ignore
 	public void testInsert(){
 		//使用此方法获取并初始化我们的spring容器，注意spring-datasource.xml必须存放在类路径的根目录下。
 	    ApplicationContext ac = new ClassPathXmlApplicationContext("spring-mvc.xml");
@@ -37,10 +39,11 @@ public class UserTest extends TestCase {
 	    user.setName("marscheng");
 	    user.setPassWord("123456");
 	    session.save(user);
-	    transaction.commit();//提交事务
+	    transaction.commit();//提交事务 		 
 	}
 	
 	@Test
+	@Ignore
 	public void testSearch(){
 		List<User> userList = userService.getAllUser();
         for(User user:userList){
