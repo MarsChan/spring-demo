@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import pers.marscheng.spring.controller.ItestInitController;
 import pers.marscheng.spring.service.ItestInitService;
-import pers.marscheng.spring.service.impl.TestInItServiceImpl;
 
 /**
  * @Description: 测试spring何时把bean加载实例化
@@ -19,7 +17,7 @@ import pers.marscheng.spring.service.impl.TestInItServiceImpl;
  *
  */
 @Controller("testInitController")
-@RequestMapping("/controller/test/init")
+@RequestMapping("/controller/one/init")
 public class TestInitControllerImpl implements ItestInitController {
 	
 	@Autowired
@@ -29,10 +27,7 @@ public class TestInitControllerImpl implements ItestInitController {
 //	@Autowired
 //	BeanFactory beanFactory;
 
-	public TestInitControllerImpl() {
-		System.out.println("controler is init sssss!");
-	}
-	
+
 	@RequestMapping(value = "/testPost" , method = RequestMethod.POST)
 	@ResponseBody
 	public String testPost(@RequestParam(value="name")String name){
@@ -42,4 +37,10 @@ public class TestInitControllerImpl implements ItestInitController {
 		return name + "is success";
 	}
 
+	@Override
+	@RequestMapping(value = "/getOneCode" , method = RequestMethod.GET)
+	@ResponseBody
+	public int getServiceHashCode() {
+		return testInitService.hashCode();
+	}
 }

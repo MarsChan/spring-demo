@@ -19,9 +19,9 @@ public class TestInItServiceImpl implements ItestInitService {
 	@Autowired
 	private ItestInitDao testInitDao;
 
-	public TestInItServiceImpl() {
-		 System.out.println("service is init");
-	}
+	//public TestInItServiceImpl() {
+	//	 System.out.println("service is init");
+	//}
 
 	@Override
 	public void test() {

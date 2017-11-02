@@ -15,9 +15,9 @@ import pers.marscheng.spring.dao.ItestInitDao;
 public class TestInitDaoImpl implements ItestInitDao {
 
 	
-	public TestInitDaoImpl() {
-		System.out.println("dao is init");
-	}
+	//public TestInitDaoImpl() {
+	//	System.out.println("dao is init");
+	//}
 	
 
 }
