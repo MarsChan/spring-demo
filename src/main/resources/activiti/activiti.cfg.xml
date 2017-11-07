@@ -18,6 +18,8 @@
 		<property name="labelFontName" value="宋体" />
 	</bean>
 
+	<!--以下为注解@autowired 必须的配置,否则会报找不到注入bean的错误-->
+
 	<!-- 流程引擎 -->
 	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
 		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
