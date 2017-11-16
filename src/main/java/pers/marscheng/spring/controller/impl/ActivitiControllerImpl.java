@@ -13,10 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pers.marscheng.spring.controller.IActivitiController;
 import pers.marscheng.spring.utils.ActivitiUtil;
-import pers.marscheng.spring.utils.ProcessInstanceDiagramCmd;
+import pers.marscheng.spring.command.ProcessInstanceDiagramCmd;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -77,6 +78,13 @@ public class ActivitiControllerImpl implements IActivitiController {
         mav.setViewName("process/deployed");
 
         return mav;
+    }
+
+    @Override
+    @RequestMapping("forceRemove")
+    public ModelAndView forceRemoveProcess(@RequestParam(value = "deploymentId") String deploymentId) {
+        repositoryService.deleteDeployment(deploymentId,true);
+        return new ModelAndView("redirect:deployed");
     }
 
     @Override

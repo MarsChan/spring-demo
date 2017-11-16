@@ -3,6 +3,7 @@ package pers.marscheng.spring.dto;
 import javax.persistence.*;
 
 /**
+ * 系统角色实体
  * @author marscheng
  * @create 2017-11-15 下午5:16
  */

@@ -26,20 +26,24 @@ a {
 </head>
 <body>
 
-	<div style="margin: 0 auto; width: 400px; padding-top: 50px;">
+	<div style="margin: 0 auto; width: 600px; padding-top: 50px;">
 		<h2>已部署流程</h2>
-		<table width="400px;">
+		<table width="600px;">
 			<thead>
 				<tr>
-					<th>流程ID</th>
+					<th>主键ID</th>
 					<th>流程名称</th>
+					<th>部署ID</th>
 					<th>操作</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="temp" items="${list}">
 					<tr>
-						<td>${temp.id}</td><td>${temp.name}</td><td><a href="../process/start?id=${temp.id}">启动流程</a> <a href="../process/graphics?definitionId=${temp.id}">图形</a></td>
+						<td>${temp.id}</td><td>${temp.name}</td><td>${temp.deploymentId}</td><td><a
+							href="../process/start?id=${temp.id}">启动流程</a> <a
+							href="../process/forceRemove?deploymentId=${temp.deploymentId}">删除流程</a> <a
+							href="../process/graphics?definitionId=${temp.id}">图形</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

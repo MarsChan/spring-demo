@@ -36,6 +36,13 @@ public interface IActivitiController {
     ModelAndView deployed(ModelAndView mav);
 
     /**
+     * 强制删除流程,无论流程是否正在执行,强制删除
+     * @param deploymentId
+     * @return
+     */
+    ModelAndView forceRemoveProcess(String deploymentId);
+
+    /**
      * 启动一个流程实例
      * @param id 流程id
      * @param mav

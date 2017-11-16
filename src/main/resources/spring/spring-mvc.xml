@@ -39,11 +39,21 @@
 	<mvc:annotation-driven/>
 
 	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀(如果最后一个还是表示文件夹,则最后的斜杠不要漏了) 使用JSP-->
-	<!-- 默认的视图解析器 在上边的解析错误时使用 (默认使用html)- -->
+	<!-- order属性来声明优先级，order值越低，则优先级越高 -->
 	<bean id="defaultViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
 		<property name="prefix" value="/views/"/><!--设置JSP文件的目录位置-->
 		<property name="suffix" value=".jsp"/>
+		<property name="order" value="0"/>
+	</bean>
+
+	<!-- 第二个视图解析器,使用HTML-->
+	<bean id="viewResolver2"
+		  class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<property name="prefix" value="/views/" />
+		<property name="suffix" value=".html"/>
+		<property name="order" value="1"/>
 	</bean>
 
 	<!-- springmvc文件上传需要配置的节点-->
