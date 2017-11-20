@@ -50,8 +50,9 @@
 				<!-- <prop key="hibernate.format_sql">true</prop> -->
 			</props>
 		</property>
-		<property name="packagesToScan" value="pers.marscheng.spring.dto" /><!-- 
-			配置需要扫描的包路径，在该包下，所有的类注解配置都会被扫描 -->
+		<!--配置需要扫描的包路径，在该包下，所有的类注解配置都会被扫描 -->
+		<property name="packagesToScan" value="pers.marscheng.spring.dto" />
+
 	</bean>
 
 	<!-- 配置Hibernate事务管理器 -->

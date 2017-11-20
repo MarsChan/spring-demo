@@ -15,7 +15,7 @@ public class SysUserEntity {
     private String password;
     private String salt;
     private String roleIds;
-    private Byte locked;
+    private boolean locked;
     private Integer pram1;
     private Integer pram2;
     private Integer pram3;
@@ -73,11 +73,11 @@ public class SysUserEntity {
 
     @Basic
     @Column(name = "locked")
-    public Byte getLocked() {
+    public boolean getLocked() {
         return locked;
     }
 
-    public void setLocked(Byte locked) {
+    public void setLocked(boolean locked) {
         this.locked = locked;
     }
 
@@ -136,7 +136,6 @@ public class SysUserEntity {
             return false;
         if (salt != null ? !salt.equals(that.salt) : that.salt != null) return false;
         if (roleIds != null ? !roleIds.equals(that.roleIds) : that.roleIds != null) return false;
-        if (locked != null ? !locked.equals(that.locked) : that.locked != null) return false;
         if (pram1 != null ? !pram1.equals(that.pram1) : that.pram1 != null) return false;
         if (pram2 != null ? !pram2.equals(that.pram2) : that.pram2 != null) return false;
         if (pram3 != null ? !pram3.equals(that.pram3) : that.pram3 != null) return false;
@@ -145,18 +144,4 @@ public class SysUserEntity {
         return true;
     }
 
-    @Override
-    public int hashCode() {
-        int result = usercode != null ? usercode.hashCode() : 0;
-        result = 31 * result + (username != null ? username.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (salt != null ? salt.hashCode() : 0);
-        result = 31 * result + (roleIds != null ? roleIds.hashCode() : 0);
-        result = 31 * result + (locked != null ? locked.hashCode() : 0);
-        result = 31 * result + (pram1 != null ? pram1.hashCode() : 0);
-        result = 31 * result + (pram2 != null ? pram2.hashCode() : 0);
-        result = 31 * result + (pram3 != null ? pram3.hashCode() : 0);
-        result = 31 * result + (pram4 != null ? pram4.hashCode() : 0);
-        return result;
-    }
 }

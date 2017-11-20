@@ -13,5 +13,6 @@ import java.util.Set;
  */
 public interface ResourceService {
     Set<String> findPermissions(Set<Long> resourceIds); //得到资源对应的权限字符串
+
     List<SysResourceEntity> findMenus(Set<String> permissions); //根据用户权限得到菜单
 }
