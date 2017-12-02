@@ -6,6 +6,8 @@ import java.nio.channels.AsynchronousFileChannel;
 import java.nio.channels.CompletionHandler;
 import java.nio.file.*;
 import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
@@ -21,7 +23,7 @@ public class FileImportTest {
         String basePath = FileImportTest.class.getResource("/").getPath();
         Path path = Paths.get(basePath+"/statics");
 
-        ByteBuffer buffer = ByteBuffer.allocate(1024);
+        ByteBuffer buffer = ByteBuffer.allocate(0x300000);
 
 
 
@@ -32,25 +34,11 @@ public class FileImportTest {
                 System.out.println(p);
                 AsynchronousFileChannel asynchronousFileChannel = AsynchronousFileChannel.open(p,
                         EnumSet.of(StandardOpenOption.READ),pool);
-                CompletionHandler<Integer,ByteBuffer> handler = new CompletionHandler<Integer, ByteBuffer>() {
-                    @Override
-                    public void completed(Integer result, ByteBuffer attachment) {
-                        System.out.println("result"+result);
 
-                        attachment.flip();
-                        byte[] data = new byte[attachment.limit()];
-                        attachment.get(data);
-                        System.out.println(new String(data));
-                        attachment.clear();
-                    }
 
-                    @Override
-                    public void failed(Throwable exc, ByteBuffer attachment) {
-                        System.out.println("error"+exc);
-                    }
-                };
+                dealFile(buffer,asynchronousFileChannel,0);
 
-                asynchronousFileChannel.read(buffer,0,buffer,handler);
+                System.out.println("===========main thread test=========================");
 
 
             }
@@ -58,5 +46,62 @@ public class FileImportTest {
             e.printStackTrace();
         }
 
+    }
+
+    public static void dealFile(ByteBuffer buffer,AsynchronousFileChannel
+            asynchronousFileChannel,long position){
+        CompletionHandler<Integer,Map<String,Object>> handler = new CompletionHandler<Integer,
+                Map<String,Object>>
+                () {
+            @Override
+            public void completed(Integer result, Map<String,Object> attachment) {
+                System.out.println("result"+result);
+                ByteBuffer buffer1 = (ByteBuffer)attachment.get("buffer");
+                long position = (long)attachment.get("position")+buffer1.capacity();
+                buffer1.flip();
+                byte[] data = new byte[buffer1.limit()];
+                buffer1.get(data);
+                System.out.println(new String(data));
+                buffer1.clear();
+
+                try {
+                    if(position<asynchronousFileChannel.size()){ //判断是否读完数据
+                        dealFile(buffer1,asynchronousFileChannel,position);
+                    }
+                    else{
+                        System.out.println("=====success!!=======size="+asynchronousFileChannel.size
+                                ());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void failed(Throwable exc, Map<String,Object> attachment) {
+                ByteBuffer buffer1 = (ByteBuffer)attachment.get("buffer");
+                long position = (long)attachment.get("position")+buffer1.capacity();
+
+                System.out.println("error"+exc);
+                try {
+                    if(position<asynchronousFileChannel.size()){
+                        dealFile(buffer1,asynchronousFileChannel,position);
+                    }
+                    else{
+                        System.out.println("=====success!!=======size="+asynchronousFileChannel
+                                .size());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        };
+
+        Map<String,Object> temp = new HashMap<>();
+        temp.put("position",position);
+        temp.put("buffer",buffer);
+        System.out.println("postion"+position);
+        asynchronousFileChannel.read(buffer,position,temp,handler);
     }
 }

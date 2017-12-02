@@ -24,6 +24,8 @@
 		<org.hibernate-version>5.2.0.Final</org.hibernate-version>
 		<!-- jackson版本 -->
 		<jackson.version>2.8.8</jackson.version>
+
+		<unic.core.version>0.10.3-SNAPSHOT</unic.core.version>
 	</properties>
 
 	<!--项目依赖 -->
@@ -261,6 +263,13 @@
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-scratchpad</artifactId>
 			<version>3.17</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.chinalife.unic</groupId>
+			<artifactId>unic-base</artifactId>
+			<version>${unic.core.version}</version>
 		</dependency>
 
 	</dependencies>
